@@ -3,28 +3,31 @@
 #include <string.h>
 
 int main() {
-    int num_changes, num_words, i, j, k;
+    int num_changes, num_words, i, j;
     char old_char, new_char;
-    char words[50][50]; // assuming maximum word length is 50 characters
     scanf("%d %d", &num_changes, &num_words);
 
     // create a dictionary of changes to be made
-    char changes[26];
+    char changes[256] = {0}; // initialize the array to 0
     for (i = 0; i < num_changes; i++) {
         scanf(" %c %c", &old_char, &new_char);
-        changes[old_char - 'a'] = new_char;
-        changes[new_char - 'a'] = old_char;
+        changes[(unsigned char)old_char] = new_char;
+        changes[(unsigned char)new_char] = old_char;
     }
 
     // loop through each word and make necessary changes
+    char words[num_words][100]; // assuming maximum word length is 100 characters
     for (i = 0; i < num_words; i++) {
-        scanf("%s", words[i]);
+        scanf(" %[^\n]", words[i]);
         for (j = 0; j < strlen(words[i]); j++) {
-            if (changes[words[i][j] - 'a']) {
-                words[i][j] = changes[words[i][j] - 'a'];
+            if (changes[(unsigned char)words[i][j]]) {
+                words[i][j] = changes[(unsigned char)words[i][j]];
             }
         }
-        printf("%s ", words[i]);
+    }
+  
+   for (i = 0; i < num_words; i++) {
+        printf("%s\n", words[i]);
     }
 
     return 0;
