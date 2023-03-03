@@ -33,7 +33,7 @@ bool search(struct RaitaAlgorithm* ra, char* pattern, char* descript, char* text
   int n = strlen(text);
   char caracter = pattern[0];
   int bmbc[ASIZE];
-  printf("desc: %s\n", descript);
+  //printf("desc: %s\n", descript);
   preprocessing(pattern, m, bmbc);
 
   bool result = false;
@@ -62,27 +62,41 @@ int main() {
     // e o
     // a b
     // c z
-    char str[] =  "mbs loww 2017"; //"sam well 2017"
-    char patterns[5] = "lmobz";
-    char descripts[5] = "wseac";
-    int size = 5;
-    for(int j = 0; j < size; j++){
-      char pattern[2] = {patterns[j], '\0'};
-      char desc[2] = {descripts[j], '\0'};
-      bool result = search(&ra, pattern, desc, str);
-      //printf("\nresultado: %d", result);
-    //   if (result) {
-    //       for (int i = 0; i < ra.count; i++) {
-    //           //printf("\n %c == %c", str[ra.resultIndex[i]], descripts[j]);
-    //           str[ra.resultIndex[i]] = descripts[j];
-    //       }
-    //   }
-      
-    //   ra.count = 0;
-    //   result = false;
+    // mbs loww 2017
+    // tozwbde ceoire
+    // ifmuwdosinbm
+    int n_pattern = 0;
+    int n_frases = 0;
+    scanf("%d %d", &n_pattern, &n_frases);
+    char patterns[n_pattern + 1];
+    char descripts[n_frases + 1];
+    char buffer[1000];
+    for(int k = 0; k < n_pattern; k++){
+        scanf(" %c %c", &patterns[k], &descripts[k]);
+    }
+    char *string_text = malloc(10000 * sizeof(char)); //aloca memoria para o texto
+    string_text[0] = '\0'; // inicializa a string com null
+
+    getchar();
+    for (int i = 0; i < n_frases; i++) {
+        printf("Enter string #%d: ", i + 1);
+        fgets(buffer, sizeof(buffer), stdin); 
+        buffer[strcspn(buffer, "\n")] = '\0'; // remove '\n' da entrada
+        
+        strcat(string_text, buffer); // concatena a string
+        strcat(string_text, "\n"); // separa com \n para nova linha
     }
 
-    printf("\n%s\n", str);
+    
+
+    for(int j = 0; j < n_pattern; j++){
+      char pattern[2] = {patterns[j], '\0'};
+      char desc[2] = {descripts[j], '\0'};
+      bool result = search(&ra, pattern, desc, string_text);
+    }
+
+    printf("\n%s\n", string_text);
+    free(string_text);
 
     return 0;
   }
