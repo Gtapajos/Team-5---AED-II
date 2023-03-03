@@ -79,7 +79,6 @@ int main() {
 
     getchar();
     for (int i = 0; i < n_frases; i++) {
-        printf("Enter string #%d: ", i + 1);
         fgets(buffer, sizeof(buffer), stdin); 
         buffer[strcspn(buffer, "\n")] = '\0'; // remove '\n' da entrada
         
