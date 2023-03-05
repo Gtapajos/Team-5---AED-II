@@ -65,7 +65,7 @@ return result;
 
 int main() {
   struct RaitaAlgorithm ra = {.count = 0};
-  bool result = search(&ra, "e", "pattern");
+  bool result = search(&ra, "abc", "abcde");
   if (result) {
   for (int i = 0; i < ra.count; i++) {
   printf("Index: %d\n", ra.resultIndex[i]);

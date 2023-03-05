@@ -1,4 +1,9 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "graph.c"
+
+#define ASIZE 256
 
 void buildSuffixAutomaton(char *x, int m, Graph aut) {
    int i, art, init, last, p, q, r;
@@ -58,6 +63,7 @@ void buildSuffixAutomaton(char *x, int m, Graph aut) {
    }
 }
 
+
 char *reverse(char *x, int m) {
    char *xR;
    int i;
@@ -69,19 +75,20 @@ char *reverse(char *x, int m) {
    return(xR);
 }
  
+ 
 int RF(char *x, int m, char *y, int n) {
    int i, j, shift, period, init, state;
    Graph aut;
    char *xR;
  
-   /* Pré-processamento */
-   aut = newSuffixAutomaton(2*(m + 2), 2*(m + 2));
+   /* Preprocessing */
+   aut = newSuffixAutomaton(2*(m + 2), 2*(m + 2)*ASIZE);
    xR = reverse(x, m);
    buildSuffixAutomaton(xR, m, aut);
    init = getInitial(aut);
    period = m;
  
-   /* Busca */
+   /* Searching */
    j = 0;
    while (j <= n - m) {
       i = m - 1;
@@ -98,7 +105,7 @@ int RF(char *x, int m, char *y, int n) {
          --i;
       }
       if (i < 0) {
-        printf("TESTE: \n %d", j);
+         OUTPUT(j);
          shift = period;
       }
       j += shift;
